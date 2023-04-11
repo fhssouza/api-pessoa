@@ -1,39 +1,43 @@
 package br.com.apipessoa.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Cidade implements Serializable {
+public class Pessoa implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	@Column(length = 50, nullable = false)
+	
 	private String nome;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date dataNascimento;
+	
+	@OneToMany(mappedBy = "pessoa")
+	private List<Endereco> enderecos = new ArrayList<>();
 
-	@ManyToOne
-	@JoinColumn(name = "estado_id")
-	private Estado estado;
-
-	public Cidade() {
+	public Pessoa() {
 	}
 
-	public Cidade(Integer id, String nome, Estado estado) {
+	public Pessoa(Integer id, String nome, Date dataNascimento) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.estado = estado;
+		this.dataNascimento = dataNascimento;
 	}
 
 	public Integer getId() {
@@ -52,12 +56,20 @@ public class Cidade implements Serializable {
 		this.nome = nome;
 	}
 
-	public Estado getEstado() {
-		return estado;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setEstado(Estado estado) {
-		this.estado = estado;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	@Override
@@ -73,7 +85,7 @@ public class Cidade implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cidade other = (Cidade) obj;
+		Pessoa other = (Pessoa) obj;
 		return Objects.equals(id, other.id);
 	}
 
