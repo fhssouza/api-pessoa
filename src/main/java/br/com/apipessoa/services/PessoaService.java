@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.apipessoa.entities.Pessoa;
 import br.com.apipessoa.repositories.PessoaRepository;
+import br.com.apipessoa.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class PessoaService {
@@ -17,4 +18,11 @@ public class PessoaService {
 	public List<Pessoa> findAll(){
 		return repository.findAll();
 	}
+	
+	public Pessoa findById(Integer id) {
+		return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(
+				"Não foi possível localizar ID: " + id + ", Tipo: " + Pessoa.class.getName()));
+	}
+	
+	
 }

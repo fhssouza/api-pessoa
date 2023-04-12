@@ -22,5 +22,10 @@ public class PessoaController {
 	public ResponseEntity<List<Pessoa>> findAll(){
 		return ResponseEntity.ok(service.findAll());
 	}
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Pessoa> findById(Integer id){
+		return ResponseEntity.ok().body(service.findById(id));
+	}
 
 }
