@@ -35,7 +35,7 @@ public class PessoaService {
 	}
 
 	public Pessoa save(Pessoa obj) {
-		obj.setId(null);
+		// obj.setId(null);
 		obj = repository.save(obj);
 		enderecoRepository.saveAll(obj.getEnderecos());
 		return obj;
@@ -46,7 +46,7 @@ public class PessoaService {
 		updateDate(newPessoa, pessoa);
 		return repository.save(newPessoa);
 	}
-	
+
 	public void deleteById(Integer id) {
 		findById(id);
 		try {
@@ -55,11 +55,11 @@ public class PessoaService {
 			throw new DataIntegrityException("Não é posível excluir porque há endereços relacionados");
 		}
 	}
-	
+
 	public Pessoa fromDTO(PessoaDTO objDto) {
-		return new Pessoa(objDto.getId(), objDto.getNome(), objDto.getDataNascimento());
+		return new Pessoa(null, objDto.getNome(), objDto.getDataNascimento());
 	}
-	
+
 	public Pessoa fromDTO(PessoaNewDTO pessoaDTO) {
 		Pessoa pessoa = new Pessoa(null, pessoaDTO.getNome(), pessoaDTO.getDataNascimento());
 		Cidade cidade = new Cidade(pessoaDTO.getCidadeId(), null, null);
@@ -68,7 +68,7 @@ public class PessoaService {
 		pessoa.getEnderecos().add(endereco);
 		return pessoa;
 	}
-
+	
 	private void updateDate(Pessoa newObj, Pessoa obj) {
 		newObj.setNome(obj.getNome());
 		newObj.setDataNascimento(obj.getDataNascimento());

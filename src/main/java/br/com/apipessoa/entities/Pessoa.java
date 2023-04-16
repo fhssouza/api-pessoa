@@ -39,7 +39,7 @@ public class Pessoa implements Serializable{
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}

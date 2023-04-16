@@ -8,7 +8,7 @@ import br.com.apipessoa.entities.Pessoa;
 public class PessoaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
+	//private Integer id;
 	private String nome;
 	private Date dataNascimento;
 
@@ -16,18 +16,19 @@ public class PessoaDTO implements Serializable {
 	}
 
 	public PessoaDTO(Pessoa entity) {
-		id = entity.getId();
+		//id = entity.getId();
 		nome = entity.getNome();
 		dataNascimento = entity.getDataNascimento();
 	}
 
+	/*
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
+	}*/
 
 	public String getNome() {
 		return nome;
