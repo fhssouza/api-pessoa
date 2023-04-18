@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.apipessoa.dto.PessoaDTO;
 import br.com.apipessoa.dto.PessoaNewDTO;
+import br.com.apipessoa.dto.PessoaNewEnderecoDTO;
 import br.com.apipessoa.entities.Cidade;
 import br.com.apipessoa.entities.Endereco;
 import br.com.apipessoa.entities.Pessoa;
@@ -35,7 +36,7 @@ public class PessoaService {
 	}
 
 	public Pessoa save(Pessoa obj) {
-		// obj.setId(null);
+		//obj.setId(null);
 		obj = repository.save(obj);
 		enderecoRepository.saveAll(obj.getEnderecos());
 		return obj;
@@ -68,6 +69,24 @@ public class PessoaService {
 		pessoa.getEnderecos().add(endereco);
 		return pessoa;
 	}
+	
+	public Pessoa fromDTO(Integer pessoaId, PessoaNewEnderecoDTO pessoaNewEnderecoDTO) {
+		Pessoa pessoa = findById(pessoaId);
+		
+		Endereco endereco = new Endereco();
+		endereco.setPessoa(pessoa);
+		endereco.setLogradouro(pessoaNewEnderecoDTO.getLogradouro());
+		endereco.setCep(pessoaNewEnderecoDTO.getCep());
+		endereco.setNumero(pessoaNewEnderecoDTO.getNumero());
+		endereco.setCidade(new Cidade(pessoaNewEnderecoDTO.getCidadeId(), null, null));
+				
+		pessoa.getEnderecos().add(endereco);
+		
+		enderecoRepository.saveAll(pessoa.getEnderecos());
+		
+		return pessoa;
+	}
+
 	
 	private void updateDate(Pessoa newObj, Pessoa obj) {
 		newObj.setNome(obj.getNome());

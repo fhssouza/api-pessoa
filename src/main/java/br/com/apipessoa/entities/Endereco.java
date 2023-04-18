@@ -23,7 +23,7 @@ public class Endereco implements Serializable {
 	private String logradouro;
 	private String cep;
 	private String numero;
-	
+		
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "pessoa_id")

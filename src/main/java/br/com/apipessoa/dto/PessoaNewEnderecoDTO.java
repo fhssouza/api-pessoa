@@ -12,9 +12,7 @@ public class PessoaNewEnderecoDTO implements Serializable {
 	private String numero;
 
 	private Integer cidadeId;
-
-	private Integer pessoaId;
-
+	
 	public PessoaNewEnderecoDTO() {
 	}
 
@@ -50,12 +48,5 @@ public class PessoaNewEnderecoDTO implements Serializable {
 		this.cidadeId = cidadeId;
 	}
 
-	public Integer getPessoaId() {
-		return pessoaId;
-	}
-
-	public void setPessoaId(Integer pessoaId) {
-		this.pessoaId = pessoaId;
-	}
 
 }
